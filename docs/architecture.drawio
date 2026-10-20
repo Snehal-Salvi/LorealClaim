@@ -1,0 +1,284 @@
+<mxfile host="app.diagrams.net" pages="5">
+  <diagram id="overview" name="1. Simple Overview">
+    <mxGraphModel dx="1337" dy="673" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;" value="LorealClaim: Does the study prove the claim?" vertex="1">
+          <mxGeometry height="40" width="900" x="40" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="user" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fontStyle=1;" value="Evaluator" vertex="1">
+          <mxGeometry height="70" width="40" x="40" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="react" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;rounded=0;" value="&lt;br&gt;&lt;b&gt;React page&lt;/b&gt;&lt;br&gt;&lt;br&gt;Form: product, claim type,&lt;br&gt;claim, study evidence&lt;br&gt;&lt;br&gt;Shows: Justified · Confidence · Reasoning" vertex="1">
+          <mxGeometry height="150" width="250" x="140" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="bar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;rounded=0;align=left;spacingLeft=8;fontSize=9;fillColor=#6c8ebf;fontColor=#ffffff;strokeColor=#6c8ebf;" value="● ● ●" vertex="1">
+          <mxGeometry height="20" width="250" x="140" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="api" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;arcSize=8;shape=process;backgroundOutline=1;size=0.06;" value="&lt;b&gt;NestJS API&lt;/b&gt;&lt;br&gt;POST /api/claims/assess&lt;br&gt;&lt;br&gt;Checks the input → asks the AI →&lt;br&gt;works out the result → saves it" vertex="1">
+          <mxGeometry height="150" width="250" x="500" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ai" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;arcSize=8;shape=cloud;" value="&lt;b&gt;OpenAI&lt;/b&gt;&lt;br&gt;Answers each check&lt;br&gt;in a fixed JSON format&lt;br&gt;&lt;i&gt;Azure OpenAI in production&lt;/i&gt;" vertex="1">
+          <mxGeometry height="180" width="290" x="860" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="db" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;arcSize=8;shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=14;" value="&lt;b&gt;PostgreSQL (via Prisma)&lt;/b&gt;&lt;br&gt;&lt;br&gt;Saves the claim and&lt;br&gt;every assessment&lt;br&gt;&lt;br&gt;&lt;i&gt;Azure PostgreSQL in production&lt;/i&gt;" vertex="1">
+          <mxGeometry height="140" width="220" x="515" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="o1" edge="1" parent="1" source="user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" target="react" value="fills form">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" edge="1" parent="1" source="react" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;exitX=1;exitY=0.4;entryX=0;entryY=0.4;" target="api" value="claim + evidence">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o3" edge="1" parent="1" source="api" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;dashed=1;exitX=0;exitY=0.72;entryX=1;entryY=0.72;" target="react" value="result">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o4" edge="1" parent="1" source="api" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;exitX=1;exitY=0.4;entryX=0.06;entryY=0.42;entryPerimeter=0;" target="ai" value="ask each check">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o5" edge="1" parent="1" source="ai" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;dashed=1;exitX=0.08;exitY=0.62;exitPerimeter=0;entryX=1;entryY=0.6;" target="api" value="JSON answer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o6" edge="1" parent="1" source="api" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="db" value="save">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hitl" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;arcSize=8;" value="The AI only recommends: &lt;b&gt;the evaluator gives the final OK.&lt;/b&gt;" vertex="1">
+          <mxGeometry height="45" width="990" x="140" y="600" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="flow" name="2. Business Flow">
+    <mxGraphModel dx="1266" dy="638" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;" value="Business Flow: Claim Lifecycle" vertex="1">
+          <mxGeometry height="40" width="900" x="40" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="scope" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;arcSize=8;fillColor=none;dashed=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontStyle=1;fontSize=13;fontColor=#9673a6;arcSize=3;" value="Scope of this task" vertex="1">
+          <mxGeometry height="170" width="420" x="655" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;" value="&lt;b&gt;Business Team&lt;/b&gt;&lt;br&gt;Proposes a product claim&lt;br&gt;&lt;br&gt;&lt;i&gt;PROPOSED&lt;/i&gt;" vertex="1">
+          <mxGeometry height="105" width="175" x="40" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="b2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;" value="&lt;b&gt;Claim Manager&lt;/b&gt;&lt;br&gt;Filters: applicability &amp;amp; feasibility&lt;br&gt;&lt;br&gt;&lt;i&gt;APPROVED&lt;/i&gt;" vertex="1">
+          <mxGeometry height="105" width="175" x="250" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="b1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" target="b2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;" value="&lt;b&gt;Scientist&lt;/b&gt;&lt;br&gt;Formulates &amp;amp; tests the product&lt;br&gt;&lt;br&gt;&lt;i&gt;IN_TESTING&lt;/i&gt;" vertex="1">
+          <mxGeometry height="105" width="175" x="460" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="b2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" target="b3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;" value="&lt;b&gt;Evaluator&lt;/b&gt;&lt;br&gt;Submits clinical study evidence&lt;br&gt;&lt;br&gt;&lt;i&gt;EVIDENCE_SUBMITTED&lt;/i&gt;" vertex="1">
+          <mxGeometry height="105" width="175" x="670" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="b3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" target="b4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;arcSize=8;" value="&lt;b&gt;AI Assessment (LLM)&lt;/b&gt;&lt;br&gt;Checks evidence against the claim&lt;br&gt;&lt;br&gt;&lt;i&gt;ASSESSED&lt;/i&gt;" vertex="1">
+          <mxGeometry height="105" width="175" x="880" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="b4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" target="b5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;arcSize=8;" value="&lt;b&gt;Evaluator&lt;/b&gt;&lt;br&gt;Reviews &amp;amp; signs off&lt;br&gt;&lt;br&gt;&lt;i&gt;VALIDATED&lt;/i&gt;" vertex="1">
+          <mxGeometry height="105" width="175" x="1090" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="b5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" target="b6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="icb1" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fontStyle=1;fillColor=#ffffff;strokeColor=#333333;" value="" vertex="1">
+          <mxGeometry height="28" width="16" x="48" y="118" as="geometry" />
+        </mxCell>
+        <mxCell id="icb2" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fontStyle=1;fillColor=#ffffff;strokeColor=#333333;" value="" vertex="1">
+          <mxGeometry height="28" width="16" x="258" y="118" as="geometry" />
+        </mxCell>
+        <mxCell id="icb3" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fontStyle=1;fillColor=#ffffff;strokeColor=#333333;" value="" vertex="1">
+          <mxGeometry height="28" width="16" x="468" y="118" as="geometry" />
+        </mxCell>
+        <mxCell id="icb4" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fontStyle=1;fillColor=#ffffff;strokeColor=#333333;" value="" vertex="1">
+          <mxGeometry height="28" width="16" x="678" y="118" as="geometry" />
+        </mxCell>
+        <mxCell id="icb6" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fontStyle=1;fillColor=#ffffff;strokeColor=#333333;" value="" vertex="1">
+          <mxGeometry height="28" width="16" x="1098" y="118" as="geometry" />
+        </mxCell>
+        <mxCell id="rej" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;arcSize=8;" value="&lt;b&gt;REJECTED&lt;/b&gt;&lt;br&gt;not applicable / not feasible" vertex="1">
+          <mxGeometry height="60" width="175" x="250" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="er" edge="1" parent="1" source="b2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" target="rej" value="no">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="loop" edge="1" parent="1" source="b6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;dashed=1;exitX=0.5;exitY=1;entryX=0.5;entryY=1;" target="b4" value="re-assess with new evidence">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1177.5" y="265" />
+              <mxPoint x="757.5" y="265" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="checks" name="3. How the AI Checks a Claim">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" value="How the AI Checks a Claim" style="text;html=1;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="10" width="900" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="We don&#39;t ask the AI just &quot;yes or no&quot;. We split the claim into small checks." style="text;html=1;align=left;verticalAlign=middle;fontSize=14;fontStyle=1;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="50" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="claim" value="&lt;b&gt;Efficacy claim&lt;/b&gt;&lt;br&gt;“Reduces wrinkles by 20% in 4 weeks”" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="220" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gchk" value="5 small checks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;arcSize=8;fillColor=none;dashed=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontStyle=1;fontSize=13;fontColor=#9673a6;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="360" y="95" width="380" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="c0" value="&lt;b&gt;RIGHT PROOF&lt;/b&gt;: does the evidence type match the claim type?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;arcSize=8;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="125" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" value="&lt;b&gt;WHAT&lt;/b&gt;: was wrinkle reduction the measured endpoint?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;arcSize=8;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="183" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" value="&lt;b&gt;HOW MUCH&lt;/b&gt;: did the result reach ≥ 20%?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;arcSize=8;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="241" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" value="&lt;b&gt;HOW LONG&lt;/b&gt;: did the study run ≥ 4 weeks?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;arcSize=8;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="299" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" value="&lt;b&gt;HOW RELIABLE&lt;/b&gt;: enough people, placebo group, statistically significant?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;arcSize=8;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="357" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="verdict" value="&lt;b&gt;Justified&lt;/b&gt; = all checks passed&lt;br&gt;&lt;b&gt;Confidence&lt;/b&gt; = passed ÷ checks that apply&lt;br&gt;&lt;b&gt;Reasoning&lt;/b&gt; = why each check passed or failed&lt;br&gt;&lt;br&gt;&lt;i&gt;Example: 18% instead of 20% → 4 of 5 pass&lt;br&gt;→ Justified: No · Confidence: 80%&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="800" y="195" width="340" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="in" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" edge="1" parent="1" source="claim" target="gchk">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="out" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" edge="1" parent="1" source="gchk" target="verdict">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="data" name="4. Data Model">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" value="Data Model (Prisma / PostgreSQL)" style="text;html=1;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="10" width="900" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="claim" value="&lt;b&gt;Claim&lt;/b&gt;&lt;hr&gt;id &amp;nbsp;UUID &amp;nbsp;PK&lt;br&gt;productName &amp;nbsp;String&lt;br&gt;claimType &amp;nbsp;ClaimType&lt;br&gt;claimText &amp;nbsp;String&lt;br&gt;status &amp;nbsp;ClaimStatus&lt;br&gt;createdAt &amp;nbsp;DateTime&lt;br&gt;updatedAt &amp;nbsp;DateTime" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;arcSize=8;align=left;spacingLeft=12;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="80" y="90" width="260" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="assess" value="&lt;b&gt;Assessment&lt;/b&gt;&lt;hr&gt;id &amp;nbsp;UUID &amp;nbsp;PK&lt;br&gt;claimId &amp;nbsp;UUID &amp;nbsp;FK → Claim&lt;br&gt;evidence &amp;nbsp;Text&lt;br&gt;justified &amp;nbsp;Boolean&lt;br&gt;confidence &amp;nbsp;Float (0–1)&lt;br&gt;reasoning &amp;nbsp;Text&lt;br&gt;criteria &amp;nbsp;Json&lt;br&gt;model &amp;nbsp;String&lt;br&gt;promptVersion &amp;nbsp;String&lt;br&gt;createdAt &amp;nbsp;DateTime" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;arcSize=8;align=left;spacingLeft=12;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="520" y="90" width="280" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="rel" value="1 claim → many assessments" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;exitX=1;exitY=0.2;entryX=0;entryY=0.1458;" edge="1" parent="1" source="claim" target="assess">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="enum" value="&lt;b&gt;enum ClaimStatus&lt;/b&gt;&lt;hr&gt;PROPOSED · APPROVED · REJECTED&lt;br&gt;IN_TESTING · EVIDENCE_SUBMITTED&lt;br&gt;ASSESSED · VALIDATED" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;arcSize=8;align=left;spacingLeft=12;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="80" y="300" width="260" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="enum2" value="&lt;b&gt;enum ClaimType&lt;/b&gt;&lt;hr&gt;EFFICACY · CONSUMER_PERCEPTION&lt;br&gt;SENSORY · SAFETY" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;arcSize=8;align=left;spacingLeft=12;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="80" y="430" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="why" value="&lt;b&gt;Why 1 : N?&lt;/b&gt;&lt;br&gt;A claim can be re-assessed with new evidence or a newer model. Keeping every assessment gives a full audit trail." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;arcSize=8;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="520" y="360" width="280" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="arch" name="5. Deep Dive: Backend">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" value="Deep Dive: How the Backend Works Inside" style="text;html=1;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="10" width="900" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gFE" value="Frontend: React (Vite)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;fillColor=none;dashed=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontStyle=1;fontSize=13;fontColor=#6c8ebf;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="270" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="fe1" value="&lt;b&gt;ClaimAssessment&lt;/b&gt; component" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="110" width="230" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="fe2" value="&lt;b&gt;Form&lt;/b&gt;&lt;br&gt;product · claim type · claim&lt;br&gt;+ paste study evidence" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="180" width="230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fe3" value="&lt;b&gt;Result card&lt;/b&gt;&lt;br&gt;Justified: Yes / No&lt;br&gt;Confidence %&lt;br&gt;Reasoning + criteria checklist" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="290" width="230" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="fe4" value="UI states: loading / error / result" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="420" width="230" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="gBE" value="Backend: NestJS (TypeScript)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;arcSize=8;fillColor=none;dashed=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontStyle=1;fontSize=13;fontColor=#82b366;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="370" y="70" width="540" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="ctrl" value="&lt;b&gt;ClaimsController&lt;/b&gt;&lt;br&gt;POST /api/claims/assess" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="390" y="110" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pipe" value="&lt;b&gt;ValidationPipe&lt;/b&gt;&lt;br&gt;AssessClaimDto (class-validator)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="110" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="svc" value="&lt;b&gt;ClaimsService&lt;/b&gt;&lt;br&gt;save claim → call LLM →&lt;br&gt;compute verdict → save result" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="390" y="240" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="llm" value="&lt;b&gt;LlmService&lt;/b&gt;&lt;br&gt;versioned prompt + JSON schema&lt;br&gt;Zod validation · timeout / retry" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="240" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="prisma" value="&lt;b&gt;PrismaService&lt;/b&gt;&lt;br&gt;typed DB client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="390" y="400" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cfg" value="&lt;b&gt;ConfigModule (.env)&lt;/b&gt;&lt;br&gt;DATABASE_URL&lt;br&gt;OPENAI_API_KEY · model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="390" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ext" value="&lt;b&gt;OpenAI API&lt;/b&gt;&lt;br&gt;(Azure OpenAI in production,&lt;br&gt;study data stays in the L&#39;Oréal tenant)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;arcSize=8;shape=cloud;" vertex="1" parent="1">
+          <mxGeometry x="960" y="205" width="320" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="gDB" value="&lt;b&gt;PostgreSQL&lt;/b&gt;&lt;br&gt;&lt;br&gt;Claim table&lt;br&gt;Assessment table&lt;br&gt;&lt;i&gt;(1 claim → many assessments)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;arcSize=8;shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="380" width="210" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" value="&lt;b&gt;1.&lt;/b&gt; POST" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" edge="1" parent="1" source="fe2" target="ctrl">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" value="&lt;b&gt;2.&lt;/b&gt; validate" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" edge="1" parent="1" source="ctrl" target="pipe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" value="&lt;b&gt;3.&lt;/b&gt; assess(dto)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" edge="1" parent="1" source="ctrl" target="svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" value="&lt;b&gt;4.&lt;/b&gt; save claim&lt;br&gt;&lt;b&gt;7.&lt;/b&gt; save result" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" edge="1" parent="1" source="svc" target="prisma">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" value="SQL" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;exitX=0.5;exitY=1;entryX=0;entryY=0.75;" edge="1" parent="1" source="prisma" target="gDB">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a6" value="&lt;b&gt;5.&lt;/b&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;" edge="1" parent="1" source="svc" target="llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a7" value="&lt;b&gt;6.&lt;/b&gt; request" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;exitX=1;exitY=0.3;entryX=0.07;entryY=0.42;entryPerimeter=0;" edge="1" parent="1" source="llm" target="ext">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a8" value="JSON" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;dashed=1;exitX=0.09;exitY=0.62;exitPerimeter=0;entryX=1;entryY=0.75;" edge="1" parent="1" source="ext" target="llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a9" value="&lt;b&gt;8.&lt;/b&gt; result" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;strokeWidth=1.5;dashed=1;exitX=0;exitY=0.7;entryX=1;entryY=0.5;" edge="1" parent="1" source="svc" target="fe3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="notes" value="&lt;b&gt;Key design decisions&lt;/b&gt;&lt;br&gt;• AI replies in a fixed JSON format, checked before saving&lt;br&gt;• Claim is split into small checks, so every result can be explained&lt;br&gt;• Every assessment is saved as history&lt;br&gt;• A human gives the final OK" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;arcSize=8;align=left;spacingLeft=12;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="530" width="620" height="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
