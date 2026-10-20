@@ -1,0 +1,61 @@
+// L'Oréal Claims Intelligence Engine: data model
+// One Claim can have many Assessments (every re-assessment is kept as history).
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Different claim types need different kinds of proof.
+enum ClaimType {
+  EFFICACY            // e.g. "Reduces wrinkles by 20% in 4 weeks" → clinical measurement
+  CONSUMER_PERCEPTION // e.g. "9 out of 10 women saw smoother skin" → consumer survey
+  SENSORY             // e.g. "Non-greasy, absorbs in 30 seconds" → sensory panel
+  SAFETY              // e.g. "Dermatologically tested" → dermatologist study
+}
+
+// Full lifecycle of a claim. This task covers EVIDENCE_SUBMITTED → ASSESSED.
+enum ClaimStatus {
+  PROPOSED
+  APPROVED
+  REJECTED
+  IN_TESTING
+  EVIDENCE_SUBMITTED
+  ASSESSED
+  VALIDATED
+}
+
+model Claim {
+  id          String       @id @default(uuid()) @db.Uuid
+  productName String
+  claimType   ClaimType
+  claimText   String
+  status      ClaimStatus  @default(PROPOSED)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  assessments Assessment[]
+
+  @@map("claims")
+}
+
+model Assessment {
+  id            String   @id @default(uuid()) @db.Uuid
+  claimId       String   @db.Uuid
+  claim         Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  evidence      String   @db.Text
+  justified     Boolean
+  confidence    Float // 0 to 1 = checks passed ÷ checks that apply
+  reasoning     String   @db.Text
+  criteria      Json // the individual checks: [{ name, met, applicable, detail }]
+  model         String // which AI model produced this result
+  promptVersion String // which prompt version was used (for audit)
+  createdAt     DateTime @default(now())
+
+  @@index([claimId])
+  @@map("assessments")
+}
