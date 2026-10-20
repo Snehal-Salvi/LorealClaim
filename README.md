@@ -19,11 +19,26 @@ in the database, and return the assessment to the React frontend.
 The assessment will include:
 
 - Whether the evidence supports the claim (Yes/No)
-- An AI-generated confidence score
+- A confidence score calculated by our code from the checks (not the AI's own guess)
 - A reasoning summary explaining the assessment
 
 The AI assessment is intended to support scientific review. It will
 not replace expert evaluation or regulatory approval.
+
+### Screenshots
+
+**Evidence supports the claim: Justified**
+
+![Justified result](docs/images/ui-justified.png)
+
+**Evidence falls short (18% measured vs 20% claimed): Not justified**
+
+![Not justified result](docs/images/ui-not-justified.png)
+
+**The AI service is busy: the claim is saved and can be retried**
+
+![AI unavailable](docs/images/ui-ai-unavailable.png)
+
 
 ---
 
@@ -147,12 +162,12 @@ scientific or regulatory approval.
 
 | Layer | Technology | Responsibility |
 |---|---|---|
-| Frontend | React.js | Submit evidence and display assessment results |
+| Frontend | React (JavaScript / JSX, Vite) | Submit evidence and display assessment results |
 | Backend | NestJS | Handle API requests and business logic |
-| Language | TypeScript | Type safety across frontend and backend |
+| Language | TypeScript (backend), JavaScript (frontend) | Type safety in the API; plain JSX in the UI, as the brief asked |
 | Database | PostgreSQL | Store claims and assessments |
 | ORM | Prisma | Database models, queries, and migrations |
-| AI Integration | OpenAI API | Generate structured claim assessments |
+| AI Integration | OpenAI SDK | Generate structured claim assessments. This demo uses Google Gemini through its OpenAI-compatible endpoint because it has a free tier; OpenAI or Azure OpenAI work by changing two settings in `.env` |
 | API | REST | Communication between frontend and backend |
 
 Why each choice was made, the alternatives considered and the trade-offs: **[docs/architecture-decisions.md](docs/architecture-decisions.md)**.
